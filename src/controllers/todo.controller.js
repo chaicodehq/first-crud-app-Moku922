@@ -7,11 +7,27 @@ import { Todo } from "../models/todo.model.js";
  * - Return 201 with created todo
  */
 export async function createTodo(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+        const { title, completed, priority, tags, dueDate } = req.body;
+
+        const newTodo = await Todo.create({
+            title,
+            completed,
+            priority,
+            tags,
+            dueDate,
+        });
+
+        return res.status(201).json(newTodo);
+    } catch (error) {
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                error: { message: error.message },
+            });
+        }
+        next(error);
+    }
 }
 
 /**
@@ -21,11 +37,11 @@ export async function createTodo(req, res, next) {
  * - Return: { data: [...], meta: { total, page, limit, pages } }
  */
 export async function listTodos(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+    } catch (error) {
+        next(error);
+    }
 }
 
 /**
@@ -33,11 +49,11 @@ export async function listTodos(req, res, next) {
  * - Return 404 if not found
  */
 export async function getTodo(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+    } catch (error) {
+        next(error);
+    }
 }
 
 /**
@@ -46,11 +62,11 @@ export async function getTodo(req, res, next) {
  * - Return 404 if not found
  */
 export async function updateTodo(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+    } catch (error) {
+        next(error);
+    }
 }
 
 /**
@@ -59,11 +75,11 @@ export async function updateTodo(req, res, next) {
  * - Return 404 if not found
  */
 export async function toggleTodo(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+    } catch (error) {
+        next(error);
+    }
 }
 
 /**
@@ -72,9 +88,9 @@ export async function toggleTodo(req, res, next) {
  * - Return 404 if not found
  */
 export async function deleteTodo(req, res, next) {
-  try {
-    // Your code here
-  } catch (error) {
-    next(error);
-  }
+    try {
+        // Your code here
+    } catch (error) {
+        next(error);
+    }
 }

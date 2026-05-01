@@ -22,7 +22,7 @@ const todoSchema = new mongoose.Schema(
             type: String,
             trim: true,
             minlength: 3,
-            maxlength: 150,
+            maxlength: 120,
             required: [true, "Title is Required"],
         },
         completed: {
@@ -43,6 +43,10 @@ const todoSchema = new mongoose.Schema(
                 },
                 message: "You cannot have more than 10 tags",
             },
+        },
+        dueDate: {
+            type: Date,
+            required: false,
         },
     },
     {

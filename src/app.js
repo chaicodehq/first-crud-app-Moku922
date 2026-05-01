@@ -1,5 +1,5 @@
 import express from "express";
-// import todoRoutes from "./routes/todo.routes.js";
+import todoRoutes from "./routes/todo.routes.js";
 // import { errorHandler } from "./middlewares/error.middleware.js";
 // import { notFound } from "./middlewares/notFound.middleware.js";
 
@@ -26,6 +26,6 @@ export function createApp() {
         });
     });
 
-    // app.use("/api/todos", todoRoutes);
+    app.use("/api/todos", todoRoutes);
     return app;
 }
