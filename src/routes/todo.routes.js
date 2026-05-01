@@ -25,5 +25,6 @@ const router = express.Router();
 // Your routes here
 router.post("/", createTodo);
 router.get("/", listTodos);
+router.get("/:id", validateObjectId, getTodo);
 
 export default router;

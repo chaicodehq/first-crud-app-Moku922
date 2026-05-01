@@ -21,11 +21,11 @@ export async function createTodo(req, res, next) {
 
         return res.status(201).json(newTodo);
     } catch (error) {
-        if (error.name === "ValidationError") {
-            return res.status(400).json({
-                error: { message: error.message },
-            });
-        }
+        // if (error.name === "ValidationError") {
+        //     return res.status(400).json({
+        //         error: { message: error.message },
+        //     });
+        // }
         next(error);
     }
 }
@@ -86,6 +86,16 @@ export async function listTodos(req, res, next) {
 export async function getTodo(req, res, next) {
     try {
         // Your code here
+        const { id } = req.params;
+        const todo = await Todo.findById(id);
+
+        if (!todo) {
+            const error = new Error("Todo not found");
+            error.status = 404;
+            throw error;
+        }
+
+        return res.status(200).json(todo);
     } catch (error) {
         next(error);
     }
