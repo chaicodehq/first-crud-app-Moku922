@@ -109,6 +109,19 @@ export async function getTodo(req, res, next) {
 export async function updateTodo(req, res, next) {
     try {
         // Your code here
+        const { id } = req.params;
+        const updates = req.body;
+        const todo = await Todo.findByIdAndUpdate(id, updates, {
+            returnDocument: "after",
+            runValidators: true,
+        });
+
+        if (!todo) {
+            const error = new Error("Todo not found");
+            error.status = 404;
+            throw error;
+        }
+        return res.status(200).json(todo);
     } catch (error) {
         next(error);
     }
@@ -122,6 +135,21 @@ export async function updateTodo(req, res, next) {
 export async function toggleTodo(req, res, next) {
     try {
         // Your code here
+        const { id } = req.params;
+        const todo = await Todo.findById(id);
+
+        if (!todo) {
+            const error = new Error("Todo not found");
+            error.status = 404;
+            throw error;
+        }
+        // if (todo.completed === false) {
+        //     todo.completed = true;
+        // } else todo.completed = false;
+        todo.completed = !todo.completed;
+        await todo.save();
+
+        return res.status(200).json(todo);
     } catch (error) {
         next(error);
     }
@@ -135,6 +163,15 @@ export async function toggleTodo(req, res, next) {
 export async function deleteTodo(req, res, next) {
     try {
         // Your code here
+        const { id } = req.params;
+        const deleteTodo = await Todo.findByIdAndDelete(id);
+        if (!deleteTodo) {
+            const error = new Error("Todo not found");
+            error.status = 404;
+            throw error;
+        }
+
+        return res.status(204).json(deleteTodo);
     } catch (error) {
         next(error);
     }
